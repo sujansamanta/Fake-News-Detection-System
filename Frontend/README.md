@@ -1,73 +1,97 @@
-# React + TypeScript + Vite
+# Fake News Detection Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React + TypeScript + Vite frontend for a fake news detection system.
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This app provides a polished UI for:
 
-## React Compiler
+- Text analysis of news claims
+- Image OCR analysis using `tesseract.js`
+- Link verification via URL content extraction
+- Animated layout powered by `framer-motion`
+- Mode selection between text, image, and link workflows
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Getting Started
 
-## Expanding the ESLint configuration
+### Install dependencies
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+From the `Frontend/` folder:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Run the app
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+Open the local Vite URL shown in the terminal (usually `http://localhost:5173`).
+
+### Build for production
+
+```bash
+npm run build
+```
+
+Preview the production build:
+
+```bash
+npm run preview
+```
+
+## Backend integration
+
+The frontend expects a backend API URL configured with `VITE_API_URL`.
+
+Example in `Frontend/.env`:
+
+```env
+VITE_API_URL=http://127.0.0.1:5000
+```
+
+The backend is used to:
+
+- classify text predictions
+- extract text from URLs
+- handle OCR results from image uploads
+
+## App structure
+
+Key files:
+
+- `src/main.tsx` — app entry point and router configuration
+- `src/pages/HomePage.tsx` — landing page and feature overview
+- `src/pages/MainApp.tsx` — main analysis workspace
+- `src/pages/TextPanel.tsx` — text detection interface
+- `src/pages/ImagePanel.tsx` — image upload and OCR workflow
+- `src/pages/LinkPanel.tsx` — link verification interface
+- `src/components/LeftToolbar.tsx` — mode selector buttons
+
+## Features
+
+- Home landing page with CTA and feature cards
+- Sidebar mode switching
+- Text input, image upload, and URL entry workflows
+- Reactive status indicator and animated UI
+- Tailwind CSS styling with responsive layout
+
+## Dependencies
+
+- `react`
+- `react-dom`
+- `react-router-dom`
+- `axios`
+- `framer-motion`
+- `tailwindcss`
+- `tesseract.js`
+
+Dev dependencies include Vite, TypeScript, ESLint, and React plugin support.
+
+## Notes
+
+- The frontend is designed to pair with the backend in the same repository.
+- Keep `VITE_API_URL` pointing to the running backend server.
+- If you update backend ports, change the environment variable accordingly.
