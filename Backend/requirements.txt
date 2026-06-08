@@ -1,6 +1,6 @@
 flask
 flask-cors
-tensorflow
+tensorflow==2.19.0
 numpy
 requests
 beautifulsoup4
